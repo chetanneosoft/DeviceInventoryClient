@@ -11,6 +11,16 @@ jest.mock('../../hooks/useNetworkStatus', () => ({
   useNetworkStatus: () => ({ isConnected: true }),
 }));
 
+jest.mock('@react-navigation/native', () => {
+  const actualNav = jest.requireActual('@react-navigation/native');
+  return {
+    ...actualNav,
+    useRoute: () => ({
+      params: {},
+    }),
+  };
+});
+
 const createMockStore = (initialState = {}) => {
   return configureStore({
     reducer: {
@@ -49,14 +59,14 @@ describe('GetObjectsByIdScreen', () => {
     expect(getByText('Get Objects by ID')).toBeTruthy();
   });
 
-  it('should render navigation button', () => {
+  it('should render add button', () => {
     const { getByText } = renderComponent();
-    expect(getByText(/Go to Add Object Screen/)).toBeTruthy();
+    expect(getByText('+')).toBeTruthy();
   });
 
   it('should render input field', () => {
     const { getByPlaceholderText } = renderComponent();
-    expect(getByPlaceholderText(/Enter comma-separated IDs/)).toBeTruthy();
+    expect(getByPlaceholderText(/Enter IDs/)).toBeTruthy();
   });
 
   it('should render fetch button', () => {
@@ -78,7 +88,7 @@ describe('GetObjectsByIdScreen', () => {
   it('should handle valid IDs input', async () => {
     const { getByText, getByPlaceholderText } = renderComponent();
 
-    const input = getByPlaceholderText(/Enter comma-separated IDs/);
+    const input = getByPlaceholderText(/Enter IDs/);
     fireEvent.changeText(input, '1,2,3');
 
     const fetchButton = getByText('Fetch Objects');
@@ -124,7 +134,7 @@ describe('GetObjectsByIdScreen', () => {
   it('should handle invalid ID format', async () => {
     const { getByText, getByPlaceholderText } = renderComponent();
 
-    const input = getByPlaceholderText(/Enter comma-separated IDs/);
+    const input = getByPlaceholderText(/Enter IDs/);
     fireEvent.changeText(input, 'abc,def');
 
     const fetchButton = getByText('Fetch Objects');

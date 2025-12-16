@@ -2,7 +2,7 @@ import objectsReducer, {
   clearObjectsError,
   setInitialOfflineData,
 } from '../objectsSlice';
-import { createObjectAsync, fetchObjectsByIdsAsync } from '../objectsThunks';
+import { createObjectAsync, fetchObjectsByIdsAsync, syncOfflineQueueAsync } from '../objectsThunks';
 import { ObjectData, ObjectFormInput, ObjectsState } from '../objectsTypes';
 
 describe('objectsSlice', () => {
@@ -176,6 +176,113 @@ describe('objectsSlice', () => {
 
     expect(result.isLoading).toBe(false);
     expect(result.error).toBe('API error');
+  });
+
+  describe('syncOfflineQueueAsync', () => {
+    it('should handle syncOfflineQueueAsync.pending', () => {
+      const action = { type: syncOfflineQueueAsync.pending.type };
+      const result = objectsReducer(initialState, action);
+
+      expect(result.isLoading).toBe(true);
+    });
+
+    it('should handle syncOfflineQueueAsync.fulfilled with all synced', () => {
+      const action = {
+        type: syncOfflineQueueAsync.fulfilled.type,
+        payload: {
+          synced: 2,
+          failed: 0,
+          remaining: 0,
+          remainingItems: [],
+        },
+      };
+
+      const result = objectsReducer(initialState, action);
+
+      expect(result.isLoading).toBe(false);
+      expect(result.offlineQueue).toEqual([]);
+      expect(result.error).toContain('2 object(s) synced successfully');
+    });
+
+    it('should handle syncOfflineQueueAsync.fulfilled with partial sync', () => {
+      const action = {
+        type: syncOfflineQueueAsync.fulfilled.type,
+        payload: {
+          synced: 1,
+          failed: 1,
+          remaining: 1,
+          remainingItems: [{ name: 'Test', data: { year: '2024', price: '100', 'CPU model': 'X1', 'Hard disk size': '256GB' } }],
+        },
+      };
+
+      const result = objectsReducer(initialState, action);
+
+      expect(result.isLoading).toBe(false);
+      expect(result.offlineQueue).toHaveLength(1);
+      expect(result.error).toContain('1 synced, 1 failed');
+    });
+
+    it('should handle syncOfflineQueueAsync.fulfilled with all failed', () => {
+      const action = {
+        type: syncOfflineQueueAsync.fulfilled.type,
+        payload: {
+          synced: 0,
+          failed: 2,
+          remaining: 2,
+          remainingItems: [
+            { name: 'Test1', data: { year: '2024', price: '100', 'CPU model': 'X1', 'Hard disk size': '256GB' } },
+            { name: 'Test2', data: { year: '2024', price: '100', 'CPU model': 'X1', 'Hard disk size': '256GB' } },
+          ],
+        },
+      };
+
+      const result = objectsReducer(initialState, action);
+
+      expect(result.isLoading).toBe(false);
+      expect(result.offlineQueue).toHaveLength(2);
+      expect(result.error).toContain('Failed to sync 2 object(s)');
+    });
+
+    it('should handle syncOfflineQueueAsync.fulfilled with idMapping', () => {
+      const stateWithLastFetched = {
+        ...initialState,
+        lastFetched: [
+          {
+            id: '1',
+            name: 'Device 1',
+            data: { year: 2024, price: 100, 'CPU model': 'X1', 'Hard disk size': '256GB' },
+          },
+        ],
+      };
+
+      const action = {
+        type: syncOfflineQueueAsync.fulfilled.type,
+        payload: {
+          synced: 1,
+          failed: 0,
+          remaining: 0,
+          remainingItems: [],
+          idMapping: { '1': '123' },
+        },
+      };
+
+      const result = objectsReducer(stateWithLastFetched, action);
+
+      expect(result.isLoading).toBe(false);
+      expect(result.lastFetched[0].id).toBe('123');
+    });
+
+    it('should handle syncOfflineQueueAsync.rejected', () => {
+      const action = {
+        type: syncOfflineQueueAsync.rejected.type,
+        payload: 'Sync failed',
+      };
+
+      const result = objectsReducer(initialState, action);
+
+      expect(result.isLoading).toBe(false);
+      expect(result.error).toBe('Sync failed');
+    });
   });
 });
 

@@ -11,6 +11,16 @@ jest.mock('../../hooks/useNetworkStatus', () => ({
   useNetworkStatus: () => ({ isConnected: true }),
 }));
 
+jest.mock('@react-navigation/native', () => {
+  const actualNav = jest.requireActual('@react-navigation/native');
+  return {
+    ...actualNav,
+    useNavigation: () => ({
+      navigate: jest.fn(),
+    }),
+  };
+});
+
 const createMockStore = (initialState = {}) => {
   return configureStore({
     reducer: {
@@ -46,12 +56,7 @@ describe('AddObjectScreen', () => {
 
   it('should render screen title', () => {
     const { getByText } = renderComponent();
-    expect(getByText('Add New Object')).toBeTruthy();
-  });
-
-  it('should render navigation button', () => {
-    const { getByText } = renderComponent();
-    expect(getByText(/Go to Get Objects Screen/)).toBeTruthy();
+    expect(getByText('Please Add New Object')).toBeTruthy();
   });
 
   it('should render form component', () => {

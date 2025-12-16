@@ -57,11 +57,10 @@ export const parseIdsToQuery = (idsString: string): string => {
 
   const ids = idsString.split(',').map(id => id.trim()).filter(id => id);
   
-  const offlineIds = ids.filter(id => id.startsWith('offline-'));
-  const apiIds = ids.filter(id => !id.startsWith('offline-') && !isNaN(Number(id)) && Number(id) > 0);
+  const apiIds = ids.filter(id => !isNaN(Number(id)) && Number(id) > 0);
 
   const validIds = apiIds.map(validId => `id=${validId}`);
 
-  return validIds.length > 0 ? validIds.join('&') : (offlineIds.length > 0 ? 'offline-only' : '');
+  return validIds.length > 0 ? validIds.join('&') : '';
 };
 

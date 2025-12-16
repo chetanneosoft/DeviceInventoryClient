@@ -111,14 +111,6 @@ const AddObjectScreen: React.FC = () => {
       >
         <Text style={styles.title}>{strings.screens.addObject.title}</Text>
 
-        {isOffline && showOfflineBanner && (
-          <View style={styles.offlineBanner}>
-            <Text style={styles.offlineText}>
-              {strings.screens.addObject.offlineBanner}
-            </Text>
-          </View>
-        )}
-
         <AddObjectForm
           formData={formData}
           onChange={handleChange}
@@ -130,6 +122,13 @@ const AddObjectScreen: React.FC = () => {
       </ScrollView>
 
       <View style={styles.bottomMessageContainer}>
+        {isOffline && showOfflineBanner && (
+          <ErrorMessage 
+            message={strings.screens.addObject.offlineBanner}
+            isGlobal={true}
+            onDismiss={() => setShowOfflineBanner(false)}
+          />
+        )}
         {localError && (
           <ErrorMessage 
             message={localError} 
@@ -171,20 +170,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     margin: 20,
     color: '#1C1C1E',
-  },
-  offlineBanner: {
-    backgroundColor: '#FFEBEE',
-    padding: 12,
-    marginHorizontal: 20,
-    marginBottom: 16,
-    borderRadius: 8,
-    borderLeftWidth: 4,
-    borderLeftColor: '#F44336',
-  },
-  offlineText: {
-    color: '#C62828',
-    fontSize: 14,
-    fontWeight: '500',
   },
   bottomMessageContainer: {
     position: 'absolute',

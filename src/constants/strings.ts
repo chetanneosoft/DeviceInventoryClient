@@ -2,14 +2,14 @@ export const strings = {
   screens: {
     getObjectsById: {
       title: "Get Objects by ID",
-      placeholder: "Enter comma-separated IDs (e.g., 3,5,10)",
+      placeholder: "Enter IDs (e.g., 3,5,10) to search Objects",
       fetchButton: "Fetch Objects",
       resultsTitle: "Fetched Objects:",
       emptyMessage: "No objects fetched yet. Enter IDs and click Fetch Objects.",
       offlineBanner: "Offline mode. Fetching is disabled; showing last successful results.",
       errors: {
         emptyIds: "Please enter at least one object ID.",
-        invalidIds: "Invalid input. Please enter valid, comma-separated IDs (e.g., 3, 5, 10) or offline IDs."
+        invalidIds: "Invalid input. Please enter valid, comma-separated IDs (e.g., 3, 5, 10)."
       }
     },
     addObject: {

@@ -72,7 +72,7 @@ const GetObjectsByIdScreen: React.FC = () => {
 
     const ids = idsInput.split(',').map(id => id.trim()).filter(id => id);
     const hasValidIds = ids.some(id => {
-      return id.startsWith('offline-') || (!isNaN(Number(id)) && Number(id) > 0);
+      return !isNaN(Number(id)) && Number(id) > 0;
     });
 
     if (!hasValidIds) {
@@ -103,14 +103,6 @@ const GetObjectsByIdScreen: React.FC = () => {
               <Text style={styles.addButtonText}>{strings.common.addButton}</Text>
         </TouchableOpacity>
           </View>
-
-        {isOffline && showOfflineBanner && (
-          <View style={styles.offlineBanner}>
-            <Text style={styles.offlineText}>
-              {strings.screens.getObjectsById.offlineBanner}
-            </Text>
-          </View>
-        )}
 
         <View style={styles.inputSection}>
           <TextInput
@@ -153,6 +145,13 @@ const GetObjectsByIdScreen: React.FC = () => {
         {isLoading && <LoadingOverlay />}
 
         <View style={styles.bottomMessageContainer}>
+          {isOffline && showOfflineBanner && (
+            <ErrorMessage 
+              message={strings.screens.getObjectsById.offlineBanner}
+              isGlobal={true}
+              onDismiss={() => setShowOfflineBanner(false)}
+            />
+          )}
           {localError && (
             <ErrorMessage 
               message={localError} 
@@ -217,20 +216,6 @@ const styles = StyleSheet.create({
     fontSize: 28,
     fontWeight: '300',
     lineHeight: 28,
-  },
-  offlineBanner: {
-    backgroundColor: '#FFF3E0',
-    padding: 12,
-    marginHorizontal: 20,
-    marginBottom: 16,
-    borderRadius: 8,
-    borderLeftWidth: 4,
-    borderLeftColor: '#FF9800',
-  },
-  offlineText: {
-    color: '#E65100',
-    fontSize: 14,
-    fontWeight: '500',
   },
   inputSection: {
     paddingHorizontal: 20,

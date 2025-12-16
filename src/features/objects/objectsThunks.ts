@@ -13,9 +13,9 @@ const generateOfflineId = async (): Promise<string> => {
     const offlineObjectsWithIdsJson = await AsyncStorage.getItem(ASYNC_STORAGE_KEYS.OFFLINE_OBJECTS_WITH_IDS);
     const offlineObjectsWithIds: ObjectData[] = offlineObjectsWithIdsJson ? JSON.parse(offlineObjectsWithIdsJson) : [];
     const nextId = offlineObjectsWithIds.length + 1;
-    return `offline-${nextId}`;
+    return String(nextId);
   } catch (error) {
-    return 'offline-1';
+    return '1';
   }
 };
 
@@ -78,17 +78,17 @@ export const fetchObjectsByIdsAsync = createAsyncThunk(
     const state = getState() as RootState;
 
     const ids = idsInput.split(',').map(id => id.trim()).filter(id => id);
-    const offlineIds = ids.filter(id => id.startsWith('offline-'));
-    const apiIds = ids.filter(id => !id.startsWith('offline-'));
+    
+    const allOfflineObjectsWithIdsJson = await AsyncStorage.getItem(ASYNC_STORAGE_KEYS.OFFLINE_OBJECTS_WITH_IDS);
+    const allOfflineObjectsWithIds: ObjectData[] = allOfflineObjectsWithIdsJson ? JSON.parse(allOfflineObjectsWithIdsJson) : [];
+    const offlineIdList = allOfflineObjectsWithIds.map(obj => obj.id).filter(id => id);
+    
+    const offlineIds = ids.filter(id => offlineIdList.includes(id));
+    const apiIds = ids.filter(id => !offlineIdList.includes(id) && !isNaN(Number(id)) && Number(id) > 0);
 
     let offlineObjects: ObjectData[] = [];
     if (offlineIds.length > 0) {
-      try {
-        const offlineObjectsWithIdsJson = await AsyncStorage.getItem(ASYNC_STORAGE_KEYS.OFFLINE_OBJECTS_WITH_IDS);
-        const allOfflineObjects: ObjectData[] = offlineObjectsWithIdsJson ? JSON.parse(offlineObjectsWithIdsJson) : [];
-        offlineObjects = allOfflineObjects.filter(obj => obj.id && offlineIds.includes(obj.id));
-      } catch (error) {
-      }
+      offlineObjects = allOfflineObjectsWithIds.filter(obj => obj.id && offlineIds.includes(obj.id));
     }
 
     if (!netStatus.isConnected) {

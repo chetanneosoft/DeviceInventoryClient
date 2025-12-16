@@ -36,7 +36,7 @@ const objectsSlice = createSlice({
         state.isLoading = false;
 
         if ('isOffline' in action.payload && action.payload.isOffline) {
-          const tempId = (action.payload as any).tempId || `temp-${state.offlineQueue.length + 1}`;
+          const tempId = (action.payload as any).tempId || String(state.offlineQueue.length + 1);
           state.error = formatString(strings.messages.error.dataSavedLocally, { id: tempId });
           state.offlineQueue.push(action.payload.data as ObjectFormInput);
         } else {
@@ -75,9 +75,10 @@ const objectsSlice = createSlice({
         state.offlineQueue = action.payload.remainingItems || [];
         
         if (action.payload.idMapping) {
+          const idMapping = action.payload.idMapping;
           state.lastFetched = state.lastFetched.map(obj => {
-            if (obj.id && action.payload.idMapping[obj.id]) {
-              return { ...obj, id: action.payload.idMapping[obj.id] };
+            if (obj.id && idMapping[obj.id]) {
+              return { ...obj, id: idMapping[obj.id] };
             }
             return obj;
           });
@@ -89,12 +90,12 @@ const objectsSlice = createSlice({
           state.error = formatString(strings.messages.success.syncPartial, { 
             synced: action.payload.synced, 
             failed: action.payload.failed, 
-            remaining: action.payload.remaining 
+            remaining: action.payload.remaining || 0
           });
         } else if (action.payload.synced === 0 && action.payload.failed > 0) {
           state.error = formatString(strings.messages.success.syncFailed, { 
             failed: action.payload.failed, 
-            remaining: action.payload.remaining 
+            remaining: action.payload.remaining || 0
           });
         }
       })

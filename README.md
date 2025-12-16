@@ -2,7 +2,9 @@
 
 A React Native mobile application for managing device inventory using the RESTful API at `https://api.restful-api.dev`. Built with Redux Toolkit for state management, TypeScript for type safety, and comprehensive offline support using AsyncStorage.
 
-## 📦 Downloads
+## 📦 Downloads & Attachments
+
+### Release APK
 
 The release APK is available in the following locations:
 
@@ -10,6 +12,28 @@ The release APK is available in the following locations:
 * **Build Output:** `android/app/build/outputs/apk/release/app-release.apk`
 * **Installation:** Download and install directly on Android devices
 * **Build Command:** `cd android && ./gradlew assembleRelease`
+
+### Additional Resources
+
+The `Attatchments` folder contains the following resources:
+
+* **📱 Release APK:** `Attatchments/app-release.apk` 
+  * Latest release build ready for installation
+  * Signed and ready for distribution
+  * Ready to install on Android devices
+
+* **🎥 Demo Video:** `Attatchments/DeviceInventoryClient_recording.mp4` 
+  * Application demo and walkthrough
+  * Shows all features and functionality
+  * Demonstrates online/offline scenarios
+  * UI/UX demonstration
+  * Complete feature showcase
+
+* **📋 Test Cases Image:** `Attatchments/TestCases.png` 
+  * Visual documentation of test cases
+  * Test coverage overview
+  * Test scenarios documentation
+  * Test execution results
 
 ## 📱 Features
 
@@ -336,15 +360,119 @@ npm run test:watch
 
 ### Test Coverage
 
-* **Total Test Suites:** 12
-* **Total Tests:** 88+
-* **Coverage:** 80%+ for all critical files
-* **Test Files:**
-  * Component tests
-  * Redux slice tests
-  * Redux thunk tests
-  * API service tests
-  * Utility function tests
+* **Total Test Suites:** 15
+* **Total Tests:** 114+
+* **Overall Coverage:** 88.91% (Statements), 84% (Branches), 80.35% (Functions), 89.56% (Lines)
+* **Coverage Target:** 80%+ for all critical files ✅
+
+### Test Files and Coverage
+
+#### Component Tests
+* **SuccessMessage.test.tsx** - 100% coverage
+  * Message rendering
+  * Auto-dismiss functionality
+  * Custom delay handling
+  * Timer cleanup on unmount
+  * Message change handling
+
+* **ErrorMessage.test.tsx** - 90.9% coverage
+  * Error message display
+  * Global vs local error styling
+  * Auto-dismiss functionality
+
+* **LoadingOverlay.test.tsx** - 100% coverage
+  * Loading indicator display
+
+* **ObjectDetailsCard.test.tsx** - 100% coverage
+  * Object data rendering
+  * Invalid data handling
+  * Missing data handling
+
+* **AddObjectForm.test.tsx** - 100% coverage
+  * Form input handling
+  * Form submission
+  * Validation display
+
+#### Screen Tests
+* **GetObjectsByIdScreen.test.tsx** - 69.81% coverage
+  * Screen rendering
+  * Input field handling
+  * Fetch button functionality
+  * Error message display
+  * Loading states
+  * Empty states
+  * Invalid ID format handling
+  * Object display
+
+* **AddObjectScreen.test.tsx** - 60.37% coverage
+  * Screen rendering
+  * Form component integration
+  * Error message display
+  * Loading states
+  * Form submission handling
+
+#### Redux Tests
+* **objectsSlice.test.ts** - 97.77% coverage
+  * Initial state
+  * createObjectAsync (pending, fulfilled, rejected)
+  * fetchObjectsByIdsAsync (pending, fulfilled, rejected)
+  * syncOfflineQueueAsync (pending, fulfilled, rejected)
+  * clearObjectsError
+  * setInitialOfflineData
+  * ID mapping updates
+  * Partial sync scenarios
+  * All sync scenarios
+
+* **objectsThunks.test.ts** - 97.02% coverage
+  * createObjectAsync:
+    * Online object creation
+    * Offline object saving
+    * API error handling
+  * fetchObjectsByIdsAsync:
+    * Online fetching
+    * Offline fallback
+    * Invalid ID format
+    * API error handling
+    * Offline objects retrieval
+    * Mixed online/offline scenarios
+  * syncOfflineQueueAsync:
+    * Successful sync
+    * Empty queue handling
+    * Offline device handling
+    * Partial sync failures
+    * Error handling
+
+#### API Tests
+* **objects.test.ts** - 100% coverage
+  * API service functions
+  * Request/response handling
+
+* **axios.test.ts** - 100% coverage
+  * Axios instance configuration
+  * Interceptors
+
+#### Utility Tests
+* **validation.test.ts** - 90.9% coverage
+  * ID parsing
+  * Form validation
+  * Edge cases
+
+#### Provider Tests
+* **OfflineSyncProvider.test.tsx** - 100% coverage
+  * Initial data loading
+  * Network status monitoring
+  * Auto-sync on network change
+  * Error handling
+
+* **ErrorBoundary.test.tsx** - 100% coverage
+  * Error catching
+  * Error UI rendering
+  * Default error messages
+
+#### Integration Tests
+* **App.test.tsx** - 100% coverage
+  * App initialization
+  * Provider setup
 
 ### Code Style
 
@@ -439,13 +567,62 @@ cd ..
 
 ### Test Coverage
 
-✅ **Comprehensive Test Suite** - 88+ test cases covering:
-* Component rendering and interactions
-* Redux state management
-* API calls and error handling
-* Form validation
-* Offline/online scenarios
-* Navigation flows
+✅ **Comprehensive Test Suite** - 114+ test cases covering:
+
+#### Test Categories
+
+1. **Component Tests (100% coverage for shared components)**
+   * SuccessMessage - Auto-dismiss, custom delays, cleanup
+   * ErrorMessage - Error display, styling, auto-dismiss
+   * LoadingOverlay - Loading indicator
+   * ObjectDetailsCard - Data rendering, edge cases
+   * AddObjectForm - Form handling, validation
+
+2. **Screen Tests**
+   * GetObjectsByIdScreen - Full user flow, error handling
+   * AddObjectScreen - Form submission, validation
+
+3. **Redux Tests (97%+ coverage)**
+   * State management - All action types
+   * Async thunks - Online/offline scenarios
+   * Error handling - All error paths
+   * Sync functionality - Complete sync flow
+
+4. **API Tests (100% coverage)**
+   * API service functions
+   * Request/response handling
+   * Error scenarios
+
+5. **Utility Tests (90%+ coverage)**
+   * Validation functions
+   * ID parsing
+   * Edge cases
+
+6. **Provider Tests (100% coverage)**
+   * OfflineSyncProvider - Network monitoring, auto-sync
+   * ErrorBoundary - Error catching and display
+
+7. **Integration Tests**
+   * App initialization
+   * Provider setup
+   * Navigation flows
+
+#### Test Scenarios Covered
+
+* ✅ Component rendering and interactions
+* ✅ Redux state management (all actions)
+* ✅ API calls and error handling
+* ✅ Form validation (all fields)
+* ✅ Offline/online scenarios (complete flow)
+* ✅ Network status changes
+* ✅ Auto-sync functionality
+* ✅ Error boundary handling
+* ✅ Loading states
+* ✅ Empty states
+* ✅ Invalid input handling
+* ✅ Navigation flows
+* ✅ AsyncStorage operations
+* ✅ ID mapping and updates
 
 ## 📊 API Endpoints
 
