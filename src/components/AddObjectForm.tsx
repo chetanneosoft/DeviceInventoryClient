@@ -1,0 +1,113 @@
+import React from 'react';
+import { View, TextInput, StyleSheet, TouchableOpacity, Text } from 'react-native';
+import { ObjectFormInput } from '../features/objects/objectsTypes';
+import { strings } from '../constants/strings';
+
+interface AddObjectFormProps {
+  formData: ObjectFormInput;
+  onChange: (key: keyof ObjectFormInput['data'] | 'name', value: string) => void;
+  onSubmit: () => void;
+  isLoading: boolean;
+}
+
+const AddObjectForm: React.FC<AddObjectFormProps> = ({ formData, onChange, onSubmit, isLoading }) => {
+  return (
+    <View style={styles.container}>
+      <TextInput
+        placeholder={strings.form.placeholders.name}
+        placeholderTextColor="#999999"
+        value={formData.name}
+        onChangeText={(text) => onChange('name', text)}
+        style={styles.input}
+        editable={!isLoading}
+        underlineColorAndroid="transparent"
+      />
+
+      <TextInput
+        placeholder={strings.form.placeholders.year}
+        placeholderTextColor="#999999"
+        value={formData.data.year}
+        onChangeText={(text) => onChange('year', text)}
+        keyboardType="numeric"
+        style={styles.input}
+        editable={!isLoading}
+        underlineColorAndroid="transparent"
+      />
+
+      <TextInput
+        placeholder={strings.form.placeholders.price}
+        placeholderTextColor="#999999"
+        value={formData.data.price}
+        onChangeText={(text) => onChange('price', text)}
+        keyboardType="numeric"
+        style={styles.input}
+        editable={!isLoading}
+        underlineColorAndroid="transparent"
+      />
+
+      <TextInput
+        placeholder={strings.form.placeholders.cpuModel}
+        placeholderTextColor="#999999"
+        value={formData.data['CPU model']}
+        onChangeText={(text) => onChange('CPU model', text)}
+        style={styles.input}
+        editable={!isLoading}
+        underlineColorAndroid="transparent"
+      />
+
+      <TextInput
+        placeholder={strings.form.placeholders.hardDiskSize}
+        placeholderTextColor="#999999"
+        value={formData.data['Hard disk size']}
+        onChangeText={(text) => onChange('Hard disk size', text)}
+        style={styles.input}
+        editable={!isLoading}
+        underlineColorAndroid="transparent"
+      />
+
+      <TouchableOpacity
+        style={[styles.button, isLoading && styles.buttonDisabled]}
+        onPress={onSubmit}
+        disabled={isLoading}
+      >
+        <Text style={styles.buttonText}>{strings.form.submitButton}</Text>
+      </TouchableOpacity>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    padding: 16,
+  },
+  input: {
+    height: 50,
+    borderColor: '#E5E5E5',
+    borderWidth: 1,
+    marginBottom: 16,
+    paddingHorizontal: 12,
+    borderRadius: 8,
+    backgroundColor: '#FFFFFF',
+    fontSize: 16,
+    color: '#000000',
+    textAlignVertical: 'center',
+  },
+  button: {
+    backgroundColor: '#007AFF',
+    paddingVertical: 14,
+    borderRadius: 8,
+    alignItems: 'center',
+    marginTop: 8,
+  },
+  buttonDisabled: {
+    backgroundColor: '#8A8A8E',
+  },
+  buttonText: {
+    color: '#FFFFFF',
+    fontSize: 16,
+    fontWeight: '600',
+  },
+});
+
+export default AddObjectForm;
+
