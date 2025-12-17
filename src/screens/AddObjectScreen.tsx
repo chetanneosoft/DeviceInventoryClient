@@ -16,6 +16,7 @@ import ErrorMessage from '../components/shared/ErrorMessage';
 import SuccessMessage from '../components/shared/SuccessMessage';
 import { RootStackParamList } from '../navigation/navigationTypes';
 import { strings } from '../constants/strings';
+import { scaleSize, Spacing } from '../config/dimensions';
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
@@ -163,12 +164,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#F8F8F8',
   },
   scrollContent: {
-    paddingBottom: 20,
+    paddingBottom: Spacing.l,
   },
   title: {
-    fontSize: 24,
+    fontSize: scaleSize(24),
     fontWeight: 'bold',
-    margin: 20,
+    margin: Spacing.l,
     color: '#1C1C1E',
   },
   bottomMessageContainer: {
@@ -176,8 +177,8 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    paddingHorizontal: 20,
-    paddingBottom: Platform.OS === 'ios' ? 20 : 10,
+    paddingHorizontal: Spacing.l,
+    paddingBottom: Platform.OS === 'ios' ? Spacing.l : Spacing.s,
     backgroundColor: 'transparent',
   },
 });

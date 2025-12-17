@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { ObjectData } from '../features/objects/objectsTypes';
 import { strings, formatString } from '../constants/strings';
+import { scaleSize, Spacing } from '../config/dimensions';
 
 interface ObjectDetailsCardProps {
   object: ObjectData;
@@ -49,40 +50,40 @@ const ObjectDetailsCard: React.FC<ObjectDetailsCardProps> = ({ object }) => {
 const styles = StyleSheet.create({
   card: {
     backgroundColor: '#FFFFFF',
-    padding: 16,
-    marginVertical: 8,
-    marginHorizontal: 16,
-    borderRadius: 8,
+    padding: Spacing.m,
+    marginVertical: Spacing.s,
+    marginHorizontal: Spacing.m,
+    borderRadius: scaleSize(8),
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
+    shadowOffset: { width: 0, height: scaleSize(2) },
     shadowOpacity: 0.1,
-    shadowRadius: 4,
+    shadowRadius: scaleSize(4),
     elevation: 3,
   },
   id: {
-    fontSize: 12,
+    fontSize: scaleSize(12),
     color: '#666',
-    marginBottom: 4,
+    marginBottom: scaleSize(4),
   },
   name: {
-    fontSize: 18,
+    fontSize: scaleSize(18),
     fontWeight: 'bold',
     color: '#1C1C1E',
-    marginBottom: 12,
+    marginBottom: scaleSize(12),
   },
   details: {
-    marginTop: 8,
+    marginTop: Spacing.s,
   },
   detailText: {
-    fontSize: 14,
+    fontSize: scaleSize(14),
     color: '#333',
-    marginVertical: 4,
+    marginVertical: scaleSize(4),
   },
   errorText: {
-    fontSize: 14,
+    fontSize: scaleSize(14),
     color: '#F44336',
     textAlign: 'center',
-    padding: 16,
+    padding: Spacing.m,
   },
 });
 

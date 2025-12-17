@@ -2,6 +2,7 @@ import React from 'react';
 import { View, TextInput, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import { ObjectFormInput } from '../features/objects/objectsTypes';
 import { strings } from '../constants/strings';
+import { scaleSize, Spacing } from '../config/dimensions';
 
 interface AddObjectFormProps {
   formData: ObjectFormInput;
@@ -78,33 +79,33 @@ const AddObjectForm: React.FC<AddObjectFormProps> = ({ formData, onChange, onSub
 
 const styles = StyleSheet.create({
   container: {
-    padding: 16,
+    padding: Spacing.m,
   },
   input: {
-    height: 50,
+    height: scaleSize(50),
     borderColor: '#E5E5E5',
-    borderWidth: 1,
-    marginBottom: 16,
-    paddingHorizontal: 12,
-    borderRadius: 8,
+    borderWidth: scaleSize(1),
+    marginBottom: Spacing.m,
+    paddingHorizontal: scaleSize(12),
+    borderRadius: scaleSize(8),
     backgroundColor: '#FFFFFF',
-    fontSize: 16,
+    fontSize: scaleSize(16),
     color: '#000000',
     textAlignVertical: 'center',
   },
   button: {
     backgroundColor: '#007AFF',
-    paddingVertical: 14,
-    borderRadius: 8,
+    paddingVertical: scaleSize(14),
+    borderRadius: scaleSize(8),
     alignItems: 'center',
-    marginTop: 8,
+    marginTop: Spacing.s,
   },
   buttonDisabled: {
     backgroundColor: '#8A8A8E',
   },
   buttonText: {
     color: '#FFFFFF',
-    fontSize: 16,
+    fontSize: scaleSize(16),
     fontWeight: '600',
   },
 });

@@ -15,6 +15,7 @@ import SuccessMessage from '../components/shared/SuccessMessage';
 import ObjectDetailsCard from '../components/ObjectDetailsCard';
 import { RootStackParamList } from '../navigation/navigationTypes';
 import { strings, formatString } from '../constants/strings';
+import { scaleSize, Spacing } from '../config/dimensions';
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 type GetObjectsRouteProp = NavigationRouteProp<RootStackParamList, 'GetObjects'>;
@@ -193,50 +194,50 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    margin: 20,
-    marginBottom: 20,
+    margin: Spacing.l,
+    marginBottom: Spacing.l,
   },
   title: {
-    fontSize: 24,
+    fontSize: scaleSize(24),
     fontWeight: 'bold',
     color: '#1C1C1E',
     flex: 1,
   },
   addButton: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
+    width: scaleSize(40),
+    height: scaleSize(40),
+    borderRadius: scaleSize(20),
     backgroundColor: '#34C759',
     justifyContent: 'center',
     alignItems: 'center',
-    marginLeft: 16,
+    marginLeft: Spacing.m,
   },
   addButtonText: {
     color: '#FFFFFF',
-    fontSize: 28,
+    fontSize: scaleSize(28),
     fontWeight: '300',
-    lineHeight: 28,
+    lineHeight: scaleSize(28),
   },
   inputSection: {
-    paddingHorizontal: 20,
-    marginBottom: 16,
+    paddingHorizontal: Spacing.l,
+    marginBottom: Spacing.m,
   },
   input: {
-    height: 50,
+    height: scaleSize(50),
     borderColor: '#E5E5E5',
     borderWidth: 1,
-    marginBottom: 16,
-    paddingHorizontal: 12,
-    borderRadius: 8,
+    marginBottom: Spacing.m,
+    paddingHorizontal: scaleSize(12),
+    borderRadius: scaleSize(8),
     backgroundColor: '#FFFFFF',
-    fontSize: 16,
+    fontSize: scaleSize(16),
     color: '#000000', 
     textAlignVertical: 'center', 
   },
   button: {
     backgroundColor: '#007AFF',
-    paddingVertical: 14,
-    borderRadius: 8,
+    paddingVertical: scaleSize(14),
+    borderRadius: scaleSize(8),
     alignItems: 'center',
   },
   buttonDisabled: {
@@ -244,25 +245,25 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: '#FFFFFF',
-    fontSize: 16,
+    fontSize: scaleSize(16),
     fontWeight: '600',
   },
   resultsContainer: {
-    paddingHorizontal: 20,
-    marginBottom: 20,
+    paddingHorizontal: Spacing.l,
+    marginBottom: Spacing.l,
   },
   resultsTitle: {
-    fontSize: 18,
+    fontSize: scaleSize(18),
     fontWeight: 'bold',
     color: '#1C1C1E',
-    marginBottom: 12,
+    marginBottom: scaleSize(12),
   },
   emptyContainer: {
-    padding: 40,
+    padding: scaleSize(40),
     alignItems: 'center',
   },
   emptyText: {
-    fontSize: 16,
+    fontSize: scaleSize(16),
     color: '#666',
     textAlign: 'center',
   },
@@ -271,8 +272,8 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    paddingHorizontal: 20,
-    paddingBottom: Platform.OS === 'ios' ? 20 : 10,
+    paddingHorizontal: Spacing.l,
+    paddingBottom: Platform.OS === 'ios' ? Spacing.l : Spacing.s,
     backgroundColor: 'transparent',
   },
 });

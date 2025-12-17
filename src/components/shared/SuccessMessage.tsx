@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { scaleSize, Spacing } from '../../config/dimensions';
 
 interface SuccessMessageProps {
   message: string;
@@ -34,16 +35,16 @@ const SuccessMessage: React.FC<SuccessMessageProps> = ({
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#FFF3E0',
-    padding: 12,
-    borderRadius: 8,
-    marginVertical: 8,
-    marginHorizontal: 20,
-    borderLeftWidth: 4,
+    padding: scaleSize(12),
+    borderRadius: scaleSize(8),
+    marginVertical: Spacing.s,
+    marginHorizontal: Spacing.l,
+    borderLeftWidth: scaleSize(4),
     borderLeftColor: '#FF9800',
   },
   text: {
     color: '#E65100',
-    fontSize: 14,
+    fontSize: scaleSize(14),
     fontWeight: '500',
   },
 });

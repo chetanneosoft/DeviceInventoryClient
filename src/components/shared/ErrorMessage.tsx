@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { scaleSize, Spacing } from '../../config/dimensions';
 
 interface ErrorMessageProps {
   message: string;
@@ -36,10 +37,10 @@ const ErrorMessage: React.FC<ErrorMessageProps> = ({
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#FFEBEE',
-    padding: 12,
-    borderRadius: 8,
-    marginVertical: 8,
-    borderLeftWidth: 4,
+    padding: scaleSize(12),
+    borderRadius: scaleSize(8),
+    marginVertical: Spacing.s,
+    borderLeftWidth: scaleSize(4),
     borderLeftColor: '#F44336',
   },
   globalContainer: {
@@ -48,7 +49,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: '#C62828',
-    fontSize: 14,
+    fontSize: scaleSize(14),
   },
   globalText: {
     color: '#E65100',
@@ -56,4 +57,3 @@ const styles = StyleSheet.create({
 });
 
 export default ErrorMessage;
-
